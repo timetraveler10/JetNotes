@@ -1,0 +1,4 @@
+core features alongside curd should(ai , reminders , searching , )
+
+
+room knows that it should insert a new entry when the id is set to zero and auto increment enabled
