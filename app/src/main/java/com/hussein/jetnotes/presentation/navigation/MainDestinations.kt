@@ -11,35 +11,46 @@ import com.hussein.jetnotes.presentation.main_screen.MainScreen
 import com.hussein.jetnotes.presentation.main_screen.MainViewModel
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object Main
 
 @Serializable
-data class Edit(val id: Int)
+data object MainNavGraph
 
 @Serializable
-data object SecretNotes
+sealed interface MainNoteDestinations{
+    @Serializable
+    data object Main: MainNoteDestinations
 
-fun NavGraphBuilder.mainScreenDestination(onNavigateToEdit: (Int?) -> Unit) {
+    @Serializable
+    data class Edit(val id: Int): MainNoteDestinations
+}
 
-    composable<Main> {
+
+
+
+fun NavGraphBuilder.mainScreenDestination(
+    onNavigateToEdit: (Int?) -> Unit,
+    onNavigateToPasscodeSetup: () -> Unit
+) {
+
+    composable<MainNoteDestinations.Main> {
         val mainViewModel: MainViewModel = viewModel(factory = MainViewModel.Factory)
         val state = mainViewModel.state.collectAsStateWithLifecycle()
 
         MainScreen(
             state = state.value,
             onAction = mainViewModel::onAction,
-            onNavigate = onNavigateToEdit
+            onNavigate = onNavigateToEdit ,
+            onNavigateToPasscodeSetup =onNavigateToPasscodeSetup
         )
     }
 }
 
 fun NavGraphBuilder.editScreenDestination(onNavigateBack: () -> Unit) {
 
-    composable<Edit> { backStackEntry ->
+    composable<MainNoteDestinations.Edit> { backStackEntry ->
         val editViewModel: EditViewModel = viewModel(factory = EditViewModel.Factory)
         val state = editViewModel.state.collectAsStateWithLifecycle()
-        val arg: Edit = backStackEntry.toRoute()
+        val arg: MainNoteDestinations.Edit = backStackEntry.toRoute()
 
         EditScreen(
             state = state.value,

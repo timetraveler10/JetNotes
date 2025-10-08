@@ -2,9 +2,7 @@ package com.hussein.jetnotes.presentation.secret_notes_screen.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColor
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,24 +19,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun PasscodeTextField(
+    passcode:String ,
+    onPasscodeChange:(String) ->Unit ,
     modifier: Modifier = Modifier,
     onComplete: (String) -> Unit,
     inputLength: Int = 4
 ) {
-    var passcode by remember { mutableStateOf("") }
     LaunchedEffect(passcode) {
         if (passcode.length == inputLength) {
             onComplete.invoke(passcode)
@@ -47,7 +41,7 @@ fun PasscodeTextField(
 
     BasicTextField(
         value = passcode,
-        onValueChange = { passcode = it },
+        onValueChange = { if (it.length <= inputLength) onPasscodeChange(it) },
         decorationBox = {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -103,6 +97,6 @@ private fun PasscodeTextFieldPrev() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        PasscodeTextField(onComplete = {})
+        PasscodeTextField(onComplete = {} , passcode = "1243" , onPasscodeChange = {})
     }
 }
