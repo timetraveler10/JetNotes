@@ -33,7 +33,8 @@ import kotlinx.coroutines.launch
 fun MainScreen(
     state: MainScreenState,
     onAction: (MainScreenActions) -> Unit,
-    onNavigate: (Int?) -> Unit
+    onNavigate: (Int?) -> Unit,
+    onNavigateToPasscodeSetup: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
@@ -50,7 +51,12 @@ fun MainScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { MainScreenTopAppBar(scrollBehavior = scrollBehavior) },
+        topBar = {
+            MainScreenTopAppBar(scrollBehavior = scrollBehavior,
+                onNavigateToPasscodeSetup = {
+                onNavigateToPasscodeSetup()
+            })
+        },
         floatingActionButton = { AddFab(onClick = { onNavigate(null) }) }
     ) { innerPadding ->
 
