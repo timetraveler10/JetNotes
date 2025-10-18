@@ -1,17 +1,18 @@
-package com.hussein.jetnotes.presentation.util
+package com.hussein.jetnotes.presentation.main_app_destinations.util
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -31,12 +32,20 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hussein.jetnotes.R
+import com.mohamedrejeb.richeditor.model.RichTextState
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichTextEditor
+import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorColors
+import com.mohamedrejeb.richeditor.ui.material3.RichTextEditorDefaults
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExRichTextField(modifier: Modifier = Modifier) {
-    val richTextState = rememberRichTextState()
+fun JetRichTextField(
+    modifier: Modifier = Modifier,
+    color: RichTextEditorColors = RichTextEditorDefaults.richTextEditorColors(),
+    richTextState: RichTextState = rememberRichTextState()
+) {
+
     val isBoldSelected = richTextState.currentSpanStyle.fontWeight == FontWeight.Bold
     val isItalicSelected = richTextState.currentSpanStyle.fontStyle == FontStyle.Italic
 
@@ -45,11 +54,12 @@ fun ExRichTextField(modifier: Modifier = Modifier) {
     val isLineThroughSelected =
         richTextState.currentSpanStyle.textDecoration?.contains(TextDecoration.LineThrough)
 
-    Box() {
+    Box(modifier = modifier) {
         RichTextEditor(
-            state = richTextState, modifier = Modifier
-                .height(400.dp)
-                .fillMaxWidth()
+            contentPadding = PaddingValues(horizontal = 4.dp),
+            modifier = Modifier.fillMaxSize(),
+            state = richTextState,
+            colors = color
         )
         FormatRow(
             modifier = Modifier
@@ -169,9 +179,9 @@ fun FormatOption(icon: @Composable () -> Unit, onToggle: () -> Unit, isOptionSel
 
 @Preview()
 @Composable
-private fun ExRichTextFieldPrev() {
+private fun JetRichTextFieldPrev() {
     Column(Modifier.statusBarsPadding()) {
-        ExRichTextField()
+        JetRichTextField()
 
     }
 }

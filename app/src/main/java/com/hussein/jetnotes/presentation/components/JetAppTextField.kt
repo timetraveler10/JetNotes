@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppInputTextField(
+fun JetAppTextField(
     modifier: Modifier = Modifier,
     text: String,
     onValueChange: (String) -> Unit,
