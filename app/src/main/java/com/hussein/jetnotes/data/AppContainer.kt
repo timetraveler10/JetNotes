@@ -13,4 +13,7 @@ class AppContainer(val context: Context) {
         ).build()
     }
     val noteRepository by lazy { NoteRepository(database.noteDao(), database.categoryDao()) }
+
+    val securityPreferences by lazy { SecurityPreferences(context = context) }
+    val appPreferences by lazy { AppPreferences(context = context) }
 }
