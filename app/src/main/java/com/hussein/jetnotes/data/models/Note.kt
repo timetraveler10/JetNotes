@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import com.hussein.jetnotes.domain.models.Notable
 
 @Entity(
     foreignKeys = [ForeignKey(
@@ -14,12 +15,14 @@ import androidx.room.PrimaryKey
     )]
 )
 data class Note(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val title: String,
-    val content: String,
+
+    @PrimaryKey(autoGenerate = true)
+    override val id: Int = 0,
+    override val title: String,
+    override val content: String,
+    override val date: Long = System.currentTimeMillis(),
     val categoryId: Int? =null,
     val color: Int? = null,
-    val isPinned: Boolean = false,
-    val date: Long = System.currentTimeMillis()
-)
+    val isPinned: Boolean = false
+): Notable
 

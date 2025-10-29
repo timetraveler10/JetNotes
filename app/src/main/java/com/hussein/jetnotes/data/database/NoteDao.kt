@@ -2,7 +2,6 @@ package com.hussein.jetnotes.data.database
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Upsert
 import com.hussein.jetnotes.data.models.Note
@@ -21,17 +20,20 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(note: Note)
 
+    @Query("SELECT * FROM note WHERE categoryId = :categoryId ORDER BY id DESC LIMIT :limit OFFSET :offset")
+    suspend fun getNotesByCategoryPaginated(categoryId: Int, limit: Int, offset: Int): List<Note>
+
     @Query("SELECT * FROM note WHERE id = :id")
     suspend fun getNoteById(id: Int): Note?
 
-    @Query("SELECT * FROM note WHERE categoryId = :categoryId")
+    @Query("SELECT * FROM note WHERE categoryId = :categoryId ORDER BY id DESC")
     fun getNotesByCategory(categoryId: Int): Flow<List<Note>>
 
     @Query("SELECT * FROM note WHERE title LIKE '%' || :query || '%'")
     fun searchNotes(query: String): Flow<List<Note>>
 
-
-
+    @Delete
+    suspend fun bulkDeleteNotes(notes: List<Note>)
 
 
 }

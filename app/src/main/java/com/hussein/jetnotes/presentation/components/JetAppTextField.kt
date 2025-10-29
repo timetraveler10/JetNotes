@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation
+package com.hussein.jetnotes.presentation.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
@@ -59,12 +59,6 @@ fun JetAppTextField(
             )
         }
     )
-//    TextField(
-//        modifier = modifier,
-//        value = text,
-//        onValueChange = onValueChange,
-//        textStyle = textStyle,
-//        maxLines = maxLines,
-//    )
+
 
 }

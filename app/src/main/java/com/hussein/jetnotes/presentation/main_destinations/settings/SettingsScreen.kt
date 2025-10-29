@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.settings
+package com.hussein.jetnotes.presentation.main_destinations.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,9 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.hussein.jetnotes.R
-import com.hussein.jetnotes.presentation.main_app_destinations.settings.components.SettingsListItem
-import com.hussein.jetnotes.presentation.main_app_destinations.settings.components.SettingsScreenTopAppBar
-import com.hussein.jetnotes.presentation.main_app_destinations.settings.components.ThemeSettingsDialog
+import com.hussein.jetnotes.presentation.main_destinations.settings.components.SettingsListItem
+import com.hussein.jetnotes.presentation.main_destinations.settings.components.SettingsScreenTopAppBar
+import com.hussein.jetnotes.presentation.main_destinations.settings.components.ThemeSettingsDialog
 import com.hussein.jetnotes.ui.theme.ListComponentsShapes
 
 @OptIn(ExperimentalMaterial3Api::class)

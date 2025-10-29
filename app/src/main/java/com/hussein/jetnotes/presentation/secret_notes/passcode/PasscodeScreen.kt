@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.secret_notes.pre_secret_notes_entry
+package com.hussein.jetnotes.presentation.secret_notes.passcode
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -19,33 +19,31 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.hussein.jetnotes.presentation.secret_notes.PassCodeInputState
 import com.hussein.jetnotes.presentation.secret_notes.SecretNoteActions
 import com.hussein.jetnotes.presentation.secret_notes.SecretNotesScreenState
-import com.hussein.jetnotes.presentation.secret_notes.secret_notes_screen.PassCodeScreenTopAppBar
-import com.hussein.jetnotes.presentation.secret_notes.secret_notes_screen.components.PasscodeTextField
+import com.hussein.jetnotes.presentation.secret_notes.components.PasscodeTextField
 
 @Composable
-fun PassCodeScreen(
+fun PasscodeScreen(
     state: SecretNotesScreenState,
     onAction: (SecretNoteActions) -> Unit,
     onNavigateToSecretNotesScreen: () -> Unit
 ) {
 
-    var entryState by remember { mutableStateOf(PassCodeInputState.Loading) }
+    var entryState by remember { mutableStateOf(PasscodeInputState.Loading) }
 
     LaunchedEffect(Unit) {
         onAction(SecretNoteActions.CheckIfPasscodeExists)
     }
 
     LaunchedEffect(state) {
-        if (state.isAuthSuccessful){
+        if (state.isAuthSuccessful) {
             onNavigateToSecretNotesScreen.invoke()
         }
     }
     LaunchedEffect(state.isPasscodeSet) {
         if (state.isPasscodeSet) {
-            entryState = PassCodeInputState.Input
+            entryState = PasscodeInputState.Input
         }
     }
 
@@ -53,32 +51,32 @@ fun PassCodeScreen(
     LaunchedEffect(state.isLoading) {
         if (!state.isLoading) {
             val isPasscodeSet = state.isPasscodeSet
-            entryState = if (isPasscodeSet) PassCodeInputState.Input else PassCodeInputState.Setup
+            entryState = if (isPasscodeSet) PasscodeInputState.Input else PasscodeInputState.Setup
 
         }
     }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        when (entryState) {
-            PassCodeInputState.Setup -> {
-                PassCodeScreenTopAppBar(
-                    title = when {
-                        state.isPasscodeSet -> "Passcode Saved"
-                        state.isConfirmationStep -> "Confirm Passcode"
-                        else -> "Setup Passcode"
-                    }
-                )
+        val title = when (entryState) {
+            PasscodeInputState.Setup -> {
+                when {
+                    state.isPasscodeSet -> "Passcode Saved"
+                    state.isConfirmationStep -> "Confirm Passcode"
+                    else -> "Setup Passcode"
+                }
             }
+            PasscodeInputState.Input -> "Please enter your passcode"
+            PasscodeInputState.Loading -> "Loading..."
 
-            PassCodeInputState.Input -> PassCodeScreenTopAppBar(title = "Please enter your passcode")
-            PassCodeInputState.Loading -> PassCodeScreenTopAppBar(title = "Loading...")
         }
+
+        PasscodeScreenTopAppBar(title = title)
     }) { innerPadding ->
         AnimatedContent(
             modifier = Modifier.padding(innerPadding),
             targetState = entryState
         ) { inputState ->
-            if (inputState == PassCodeInputState.Loading) LoadingContent()
+            if (inputState == PasscodeInputState.Loading) LoadingContent()
 
             Column(
                 modifier = Modifier
@@ -93,7 +91,7 @@ fun PassCodeScreen(
                         onAction(SecretNoteActions.OnPasscodeInputChange(it))
                     },
                     onComplete = {
-                        if (entryState == PassCodeInputState.Input) onAction(
+                        if (entryState == PasscodeInputState.Input) onAction(
                             SecretNoteActions.HandlePasscodeEntrySubmit(it)
                         )
                         else onAction(SecretNoteActions.HandlePasscodeSetupSubmit)

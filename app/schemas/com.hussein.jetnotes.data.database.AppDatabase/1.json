@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ceaba8ec9327f94e6fe4587717d07325",
+    "identityHash": "b4890c746c7fc17166115bd406a65ff9",
     "entities": [
       {
         "tableName": "Note",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `categoryId` INTEGER, `color` INTEGER, `isPinned` INTEGER NOT NULL, `date` INTEGER NOT NULL, FOREIGN KEY(`categoryId`) REFERENCES `Category`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `date` INTEGER NOT NULL, `categoryId` INTEGER, `color` INTEGER, `isPinned` INTEGER NOT NULL, FOREIGN KEY(`categoryId`) REFERENCES `Category`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,6 +27,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "categoryId",
             "columnName": "categoryId",
             "affinity": "INTEGER"
@@ -39,12 +45,6 @@
           {
             "fieldPath": "isPinned",
             "columnName": "isPinned",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "date",
-            "columnName": "date",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -92,11 +92,47 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "SecretNote",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `content` TEXT NOT NULL, `date` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ceaba8ec9327f94e6fe4587717d07325')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b4890c746c7fc17166115bd406a65ff9')"
     ]
   }
 }

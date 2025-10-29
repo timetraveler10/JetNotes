@@ -1,6 +1,6 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.settings
+package com.hussein.jetnotes.presentation.main_destinations.settings
 
-import com.hussein.jetnotes.presentation.main_app_destinations.util.ThemeStates
+import com.hussein.jetnotes.presentation.main_destinations.util.ThemeStates
 
 data class SettingsScreenState(
     val currentTheme: ThemeStates = ThemeStates.SYSTEM_DEFAULT,

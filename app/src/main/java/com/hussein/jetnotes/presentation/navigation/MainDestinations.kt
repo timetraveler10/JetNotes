@@ -1,14 +1,18 @@
 package com.hussein.jetnotes.presentation.navigation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.hussein.jetnotes.presentation.edit_screen.EditScreen
-import com.hussein.jetnotes.presentation.edit_screen.EditViewModel
-import com.hussein.jetnotes.presentation.main_screen.MainScreen
-import com.hussein.jetnotes.presentation.main_screen.MainViewModel
+import com.hussein.jetnotes.presentation.main_destinations.edit.EditScreen
+import com.hussein.jetnotes.presentation.main_destinations.edit.EditViewModel
+import com.hussein.jetnotes.presentation.main_destinations.notes.NotesScreen
+import com.hussein.jetnotes.presentation.main_destinations.notes.NotesViewModel
+import com.hussein.jetnotes.presentation.main_destinations.settings.SettingsScreen
+import com.hussein.jetnotes.presentation.main_destinations.settings.SettingsScreenViewModel
 import kotlinx.serialization.Serializable
 
 
@@ -16,47 +20,75 @@ import kotlinx.serialization.Serializable
 data object MainNavGraph
 
 @Serializable
-sealed interface MainNoteDestinations{
+sealed interface MainAppDestinations {
     @Serializable
-    data object Main: MainNoteDestinations
+    data object Main : MainAppDestinations
 
     @Serializable
-    data class Edit(val id: Int): MainNoteDestinations
+    data class Edit(val id: Int) : MainAppDestinations
+@Serializable
+    data object Settings : MainAppDestinations
+    data object Reminders : MainAppDestinations
 }
 
 
-
-
+@OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.mainScreenDestination(
     onNavigateToEdit: (Int?) -> Unit,
-    onNavigateToPasscodeSetup: () -> Unit
+    onNavigateToPasscodeSetup: () -> Unit,
+    onNavigateToSettings:()->Unit,
+    sharedElementTransitionScope: SharedTransitionScope
 ) {
 
-    composable<MainNoteDestinations.Main> {
-        val mainViewModel: MainViewModel = viewModel(factory = MainViewModel.Factory)
-        val state = mainViewModel.state.collectAsStateWithLifecycle()
+    composable<MainAppDestinations.Main> {
+        val notesViewModel: NotesViewModel = viewModel(factory = NotesViewModel.Factory)
+        val state = notesViewModel.state.collectAsStateWithLifecycle()
 
-        MainScreen(
+        NotesScreen(
             state = state.value,
-            onAction = mainViewModel::onAction,
-            onNavigate = onNavigateToEdit ,
-            onNavigateToPasscodeSetup =onNavigateToPasscodeSetup
+            onAction = notesViewModel::onAction,
+            onNavigate = onNavigateToEdit,
+            onNavigateToPasscodeSetup = onNavigateToPasscodeSetup,
+            animatedContentScope = this,
+            sharedElementTransitionScope = sharedElementTransitionScope,
+            onNavigateToSettings = onNavigateToSettings
         )
     }
 }
 
-fun NavGraphBuilder.editScreenDestination(onNavigateBack: () -> Unit) {
+@OptIn(ExperimentalSharedTransitionApi::class)
+fun NavGraphBuilder.editScreenDestination(
+    onNavigateBack: () -> Unit,
+    sharedElementTransitionScope: SharedTransitionScope
+) {
 
-    composable<MainNoteDestinations.Edit> { backStackEntry ->
+    composable<MainAppDestinations.Edit> { backStackEntry ->
         val editViewModel: EditViewModel = viewModel(factory = EditViewModel.Factory)
         val state = editViewModel.state.collectAsStateWithLifecycle()
-        val arg: MainNoteDestinations.Edit = backStackEntry.toRoute()
+        val arg: MainAppDestinations.Edit = backStackEntry.toRoute()
 
         EditScreen(
             state = state.value,
             onAction = editViewModel::onAction,
             id = arg.id,
-            navigateBack = onNavigateBack
+            navigateBack = onNavigateBack,
+            sharedElementTransitionScope = sharedElementTransitionScope,
+            animatedContentScope = this
+        )
+    }
+}
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+fun NavGraphBuilder.settingsDestination(onNavigateBack: () -> Unit) {
+
+    composable<MainAppDestinations.Settings> { backStackEntry ->
+        val settingsScreenViewModel: SettingsScreenViewModel =
+            viewModel(factory = SettingsScreenViewModel.Factory)
+        val state = settingsScreenViewModel.state.collectAsStateWithLifecycle()
+
+        SettingsScreen(
+            state = state.value,
+            onAction = settingsScreenViewModel::onAction, onNavigateBack = onNavigateBack
         )
     }
 }

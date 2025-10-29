@@ -1,13 +1,13 @@
 [versions]
-agp = "9.0.0-alpha06"
+agp = "9.0.0-alpha11"
 coreKtx = "1.17.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.9.4"
 activityCompose = "1.11.0"
-kotlin = "2.0.21"
-composeBom = "2025.09.01"
+kotlin = "2.2.10"
+composeBom = "2025.10.00"
 room = "2.8.1"
 composeNavigation = "2.9.5"
 kspVersion = "2.0.21-1.0.27"
@@ -15,7 +15,8 @@ composeViewmodel = "2.9.4"
 kotlixSerialzationJson = "1.9.0"
 androidxCrypto = "1.1.0"
 androidBiometrics = "1.4.0-alpha04"
-
+datastore = "1.1.1"
+richTextfield = "1.0.0-rc11"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,7 +44,9 @@ compose-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlixSerialzationJson" }
 
 androidx-crypto = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "androidxCrypto" }
-androidx_biometrics = { group = "androidx.biometric", name = "biometric" ,version.ref = "androidBiometrics" }
+androidx_biometrics = { group = "androidx.biometric", name = "biometric", version.ref = "androidBiometrics" }
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+richtextfield = { group = "com.mohamedrejeb.richeditor", name = "richeditor-compose" , version.ref = "richTextfield"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

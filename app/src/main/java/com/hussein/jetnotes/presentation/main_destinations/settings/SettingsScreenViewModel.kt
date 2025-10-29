@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.settings
+package com.hussein.jetnotes.presentation.main_destinations.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.hussein.jetnotes.JetNotesApp
 import com.hussein.jetnotes.data.preferences.AppPreferences
-import com.hussein.jetnotes.presentation.main_app_destinations.util.ThemeStates
+import com.hussein.jetnotes.presentation.main_destinations.util.ThemeStates
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn

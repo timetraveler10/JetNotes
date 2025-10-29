@@ -1,5 +1,5 @@
-package com.hussein.jetnotes.presentation.secret_notes
+package com.hussein.jetnotes.presentation.secret_notes.passcode
 
-enum class PassCodeInputState {
+enum class PasscodeInputState {
     Setup,Input,Loading
 }

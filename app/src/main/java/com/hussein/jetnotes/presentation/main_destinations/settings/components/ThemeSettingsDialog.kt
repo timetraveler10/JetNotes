@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.settings.components
+package com.hussein.jetnotes.presentation.main_destinations.settings.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.hussein.jetnotes.presentation.main_app_destinations.util.ThemeStates
+import com.hussein.jetnotes.presentation.main_destinations.util.ThemeStates
 
 @Composable
 fun ThemeSettingsDialog(

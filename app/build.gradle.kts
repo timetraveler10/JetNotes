@@ -80,4 +80,7 @@ dependencies {
     implementation(libs.androidx.crypto)
     implementation(libs.androidx.biometrics)
 
+    implementation(libs.androidx.datastore)
+
+    implementation(libs.richtextfield)
 }

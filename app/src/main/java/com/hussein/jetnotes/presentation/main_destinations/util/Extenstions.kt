@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.util
+package com.hussein.jetnotes.presentation.main_destinations.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

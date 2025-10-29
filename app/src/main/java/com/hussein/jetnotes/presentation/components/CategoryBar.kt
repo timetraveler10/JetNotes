@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.shared_components
+package com.hussein.jetnotes.presentation.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -51,11 +51,11 @@ fun CategoryBar(
             FilterChip(
                 modifier = Modifier.animateContentSize(),
                 selected = currentSelectedCategoryId == category.id, onClick = {
-                if (currentSelectedCategoryId != category.id) {
-                    onCategorySelected(category.id)
-                }
+                    if (currentSelectedCategoryId != category.id) {
+                        onCategorySelected(category.id)
+                    }
 
-            }, label = { Text(text = category.name) },
+                }, label = { Text(text = category.name) },
                 trailingIcon = { CategoryChipIcon(currentSelectedCategoryId == category.id) })
         }
 

@@ -1,4 +1,4 @@
-package com.hussein.jetnotes.presentation.main_app_destinations.settings.components
+package com.hussein.jetnotes.presentation.main_destinations.settings.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
